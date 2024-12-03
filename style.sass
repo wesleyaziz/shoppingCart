@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Edu+AU+VIC+WA+NT+Hand:wght@400..700&display=swap')
+
+@mixin size($width,$height:$width)
+  width: $width
+  height: $height
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  text-decoration: none
+  list-style: none
+
+body
+  font-family: "Bebas Neue", sans-serif
+  -webkit-user-select: none
+  -ms-user-select: none
+  user-select: none
+  &::-webkit-scrollbar
+    width: 10px
+  &::-webkit-scrollbar-track
+    background: #f1f1f1
+  &::-webkit-scrollbar-thumb
+    background-color: #353432
+    &:hover
+      background-color: #555
+.container
+  width: 900px
+  margin: auto
+  max-width: 90vw
+  text-align: center
+  padding-top: 10px
+  transition: transform 0.5s ease
+
+header
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 20px 0
+
+.title
+  font-size: xx-large
+.icon-cart
+  position: relative
+  span
+    position: absolute
+    background-color: #f00
+    color: #fff
+    +size(20px)
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 50%
+    top: 50%
+    right: -15px
+  i
+    font-size: 30px
+
+.listProduct
+  display: grid
+  grid-template-columns: repeat(4,1fr)
+  gap: 20px
+  .item
+    background-color: #eee
+    padding: 20px
+    border-radius: 10px
+    h2
+      font-weight: 500
+    .price
+      letter-spacing: 2px
+      font-weight: bold
+    img
+      width: 90%
+      filter: drop-shadow(0 30px 30px #000)
+    button.addCart
+      background-color: #353432
+      color: #eee
+      border: none
+      font-weight: bolder
+      padding: 10px 20px
+      margin-top: 10px
+      border-radius: 20px
+      &:active
+        transform: scale(0.95)
+.listCart
+  overflow: auto
+  .item
+    display: grid
+    grid-template-columns: 70px 150px 50px 1fr
+    gap: 10px
+    text-align: center
+    align-items: center
+    &:nth-child(even)
+      background-color: #eee1
+    img
+      width: 100%
+
+  .quantity
+    span
+      display: inline-block
+      +size(25px)
+      background-color: #eee
+      color: #555
+      cursor: pointer
+      border-radius: 50%
+      &:nth-child(2)
+        background-color: transparent
+        color: #eee
+        cursor: auto
+
+.listCart::-webkit-scrollbar
+  width: 0
+.cartTab
+  display: grid
+  grid-template-rows: 70px 1fr 30px 60px
+  position: fixed
+  width: 400px
+  background-color: #353432
+  color: #eee
+  right: -400px
+  top: 0
+  bottom: 0
+  transition: transform 0.3s ease
+  h1
+    padding: 20px
+    margin: 0
+    font-weight: 300
+  .totalCount
+    line-height: 30px
+    border-top: .5px solid #eee
+  .btn
+    display: grid
+    grid-template-columns: repeat(3,1fr)
+    button
+      border: none
+      font-weight: bolder
+      cursor: pointer
+    .close
+      background-color: #eee
+    .removeall
+      background-color: #aaa
+    .checkout
+      background-color: #e8bc0e
+
+.cartTab
+  right: 0
+.showCart
+  .cartTab
+    transform: translateX(400px)
+
+@media only screen and (max-width:992px)
+  .listProduct
+    grid-template-columns: repeat(3,1fr)
+
+@media only screen and (max-width:768px)
+  .listProduct
+    grid-template-columns: repeat(2,1fr)

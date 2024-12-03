@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "LD01 LOUNGE CHAIR", 
+    "price": 1000,
+    "image": "images/1.png"
+  },
+  {
+    "id": 2,
+    "name":"LD02 LOUNGE CHAIR",
+    "price":1200,
+    "image":"images/2.png"
+  },
+  {
+    "id": 3,
+    "name":"LD03 LOUNGE CHAIR",
+    "price":1050,
+    "image":"images/3.png"
+  },
+  {
+    "id": 4,
+    "name":"LD04 LOUNGE CHAIR",
+    "price":2100,
+    "image":"images/4.png"
+  },
+  {
+    "id": 5,
+    "name":"LD05 LOUNGE CHAIR",
+    "price":1290,
+    "image":"images/5.png"
+  },
+  {
+    "id": 6,
+    "name":"LD06 LOUNGE CHAIR",
+    "price":2010,
+    "image":"images/6.png"
+  },
+  {
+    "id": 7,
+    "name":"LD07 LOUNGE CHAIR",
+    "price":1300,
+    "image":"images/7.png"
+  },
+  {
+    "id": 8,
+    "name":"LD08 LOUNGE CHAIR",
+    "price":2040,
+    "image":"images/8.png"
+  },
+  {
+    "id": 9,
+    "name":"LD09 LOUNGE CHAIR",
+    "price":2180,
+    "image":"images/9.png"
+  },
+  {
+    "id": 10,
+    "name":"LD10 LOUNGE CHAIR",
+    "price":2280,
+    "image":"images/10.png"
+  },
+  {
+    "id": 11,
+    "name":"LD11 LOUNGE CHAIR",
+    "price":2440,
+    "image":"images/11.png"
+  },
+  {
+    "id": 12,
+    "name":"LD12 LOUNGE CHAIR",
+    "price":1980,
+    "image":"images/12.png"
+  }
+]
