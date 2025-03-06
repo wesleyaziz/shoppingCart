@@ -49,6 +49,9 @@ header {
 .icon-cart {
   position: relative;
 }
+.icon-cart:hover {
+  cursor: pointer;
+}
 .icon-cart span {
   position: absolute;
   background-color: #f00;
@@ -95,6 +98,9 @@ header {
   padding: 10px 20px;
   margin-top: 10px;
   border-radius: 20px;
+}
+.listProduct .item button.addCart:hover {
+  cursor: pointer;
 }
 .listProduct .item button.addCart:active {
   transform: scale(0.95);
