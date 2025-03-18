@@ -1,29 +1,86 @@
-let listProduct = document.querySelector('.listProduct')
-let listCart = document.querySelector('.listCart')
-let iconCart = document.querySelector('.icon-cart')
-let iconCartSpan = document.querySelector('.icon-cart span')
-let body = document.querySelector('body')
-let closeCart = document.querySelector('.close')
-let removeAll = document.querySelector('.removeall')
-let totalCount = document.querySelector('.totalCount')
-let products = []
-let cart = []
+document.addEventListener('DOMContentLoaded',()=>{
+  let listProduct = document.querySelector('.listProduct')
+  let listCart = document.querySelector('.listCart')
+  let iconCart = document.querySelector('.icon-cart')
+  let iconCartSpan = document.querySelector('.icon-cart span')
+  let body = document.querySelector('body')
+  let closeCart = document.querySelector('.close')
+  let removeAll = document.querySelector('.removeAll')
+  let totalCount = document.querySelector('.totalCount')
+  let checkoutBtn = document.querySelector('.checkout')
+  let checkoutContainer = document.querySelector('.checkout-container')
+  let returnToCartLink = document.querySelector('.returnCart a')
+  let checkoutList = document.querySelector('.returnCart .list')
+  let totalQuantityDisplay = document.querySelector('.return .totalQuantity')
+  let totalPriceDisplay = document.querySelector('.return .totalPrice')
+  let finishCheckoutBtn = document.querySelector('.buttonCheckout')
+  let products = []
+  let cart = []
 
-document.addEventListener('selectstart',(e)=>{
-  e.preventDefault()
-})
+  document.addEventListener('selectstart',(e)=>{
+    e.preventDefault()
+  })
 
-iconCart.addEventListener('click',()=>{
-  body.classList.toggle('showCart')
-}) 
-closeCart.addEventListener('click',()=>{
-  body.classList.toggle('showCart')
-})
-removeAll.addEventListener('click',()=>{
-  cart = []
-  addCartToDOM()
-  addCartToMemory()
-})
+  iconCart.addEventListener('click',()=>{
+    body.classList.toggle('showCart')
+  }) 
+  closeCart.addEventListener('click',()=>{
+    body.classList.toggle('showCart')
+  })
+  removeAll.addEventListener('click',()=>{
+    cart = []
+    addCartToDOM()
+    addCartToMemory()
+  })
+
+  checkoutBtn.addEventListener('click', () => {
+    updateCheckoutList()
+    checkoutContainer.style.display = 'block'
+    body.classList.remove('showCart')
+  })
+
+  returnToCartLink.addEventListener('click', (e) => {
+    e.preventDefault()
+    checkoutContainer.style.display = 'none'
+    body.classList.add('showCart')
+  })
+
+  const updateCheckoutList = () => {
+    checkoutList.innerHTML = ''
+    let totalQuantity = 0
+    let totalPrice = 0
+    
+    if(cart.length > 0) {
+      cart.forEach(item => {
+        let positionProduct = products.findIndex((value) => value.id == item.product_id)
+        let info = products[positionProduct]
+        
+        if(info) {
+          totalQuantity += item.quantity
+          let itemPrice = info.price * item.quantity
+          totalPrice += itemPrice
+          
+          let checkoutItem = document.createElement('div')
+          checkoutItem.classList.add('item')
+          checkoutItem.innerHTML = `
+            <img src="${info.image}" alt="${info.name}">
+            <div class="info">
+              <div class="name">${info.name}</div>
+              <div class="price">$${info.price} / ${item.quantity} product</div>
+            </div>
+            <div class="quantity">${item.quantity}</div>
+            <div class="returnPrice">$${itemPrice}</div>
+          `
+          checkoutList.appendChild(checkoutItem)
+        }
+      })
+    } else {
+      checkoutList.innerHTML = '<p>Your cart is empty</p>'
+    }
+    
+    totalQuantityDisplay.textContent = totalQuantity
+    totalPriceDisplay.textContent = `$${totalPrice}`
+  }
 
   const addDataToDOM = () => {
     if(products.length>0){
@@ -126,38 +183,48 @@ removeAll.addEventListener('click',()=>{
       changeQuantity(product_id, type)
     }
   })
-const changeQuantity = (product_id,type)=>{
-  let positionItemInCart = cart.findIndex((value)=> value.product_id == product_id)
-  if(positionItemInCart >= 0){
-    switch(type){
-      case 'plus':
-        cart[positionItemInCart].quantity += 1
-        break
-      default:
-        let valueChange =cart[positionItemInCart].quantity -1
-        if(valueChange > 0){
-          cart[positionItemInCart].quantity = valueChange
-        }else{
-          cart.splice(positionItemInCart,1)
-        }
-        break
+  const changeQuantity = (product_id,type)=>{
+    let positionItemInCart = cart.findIndex((value)=> value.product_id == product_id)
+    if(positionItemInCart >= 0){
+      switch(type){
+        case 'plus':
+          cart[positionItemInCart].quantity += 1
+          break
+        default:
+          let valueChange =cart[positionItemInCart].quantity -1
+          if(valueChange > 0){
+            cart[positionItemInCart].quantity = valueChange
+          }else{
+            cart.splice(positionItemInCart,1)
+          }
+          break
+      }
     }
+    addCartToDOM()
+    addCartToMemory()
   }
-  addCartToDOM()
-  addCartToMemory()
-}
-const initApp = () => {
-  fetch('products.json')
-  .then(response => response.json())
-  .then(data=>{
-    products = data
-    addDataToDOM()
+  const initApp = () => {
+    checkoutContainer.style.display = 'none'
+    
+    fetch('products.json')
+    .then(response => response.json())
+    .then(data=>{
+      products = data
+      addDataToDOM()
 
-    if(localStorage.getItem('cart')){
-      cart = JSON.parse(localStorage.getItem('cart'))
-      addCartToDOM()
-    }
+      if(localStorage.getItem('cart')){
+        cart = JSON.parse(localStorage.getItem('cart'))
+        addCartToDOM()
+      }
+    })
+  }
+  initApp()
+
+  finishCheckoutBtn.addEventListener('click',()=>{
+    cart = []
+    addCartToDOM()
+    addCartToMemory()
+    checkoutContainer.style.display = 'none'
+    alert('Thank you for your purchase! We will contact you soon.')
   })
-}
-
-initApp()
+})
